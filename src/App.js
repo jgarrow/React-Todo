@@ -1,7 +1,15 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 
 import TodoForm from "./components/TodoComponents/TodoForm";
 import TodoList from "./components/TodoComponents/TodoList";
+
+const Container = styled.div`
+    margin: 0 auto;
+    width: 80%;
+    max-width: 960px;
+    text-align: center;
+`;
 
 class App extends Component {
     // you will need a place to store your state in this component.
@@ -45,8 +53,6 @@ class App extends Component {
 
     changeCheckmark = (task, index) => {
         // want to change 'completed' state for task whose check circle is clicked
-        // let currentTaskId = task.id;
-        // let completionStatus = task.completed;
         task.completed = !task.completed;
         let currentTasks = [...this.state.tasks];
         currentTasks[index] = task;
@@ -62,7 +68,7 @@ class App extends Component {
 
     render() {
         return (
-            <div>
+            <Container>
                 <h2>Welcome to your Todo App!</h2>
                 <TodoForm
                     submitHandler={this.submitHandler}
@@ -72,7 +78,7 @@ class App extends Component {
                     tasks={this.state.tasks}
                     changeCheckmark={this.changeCheckmark}
                 />
-            </div>
+            </Container>
         );
     }
 }
