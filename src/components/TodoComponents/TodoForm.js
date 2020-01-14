@@ -13,7 +13,19 @@ class TodoForm extends Component {
     };
 
     submitHandler = () => {
+        console.log("In submitHandler in TodoForm");
         this.props.submitHandler(this.state.task);
+    };
+
+    submitOnPressEnter = event => {
+        console.log("in enter keypress handler");
+        if (event.key === "Enter") {
+            this.props.submitHandler(this.state.task);
+        }
+    };
+
+    clearTodoListHandler = () => {
+        this.props.clearTodoListHandler();
     };
 
     render() {
@@ -25,9 +37,11 @@ class TodoForm extends Component {
                     name="task"
                     placeholder="What do you need to do?"
                     onChange={this.changeHandler}
+                    onKeyPress={this.submitOnPressEnter}
                 />
-                <button onSubmit={this.props.submitHandler}>
-                    Add to todo list
+                <button onClick={this.submitHandler}>Add to todo list</button>
+                <button onClick={this.clearTodoListHandler}>
+                    Clear todo list
                 </button>
             </div>
         );

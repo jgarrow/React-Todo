@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import TodoForm from "./components/TodoComponents/TodoForm";
-import TodoCard from "./components/TodoComponents/TodoList";
+import TodoList from "./components/TodoComponents/TodoList";
 
 class App extends Component {
     // you will need a place to store your state in this component.
@@ -14,6 +14,7 @@ class App extends Component {
         };
     }
 
+    // for input field
     onChangeHandler = event => {
         let currentTasksLength = this.state.tasks.length;
         let taskName = event.target.value;
@@ -28,6 +29,7 @@ class App extends Component {
 
     submitHandler = task => {
         let currentTasksLength = this.state.tasks.length;
+        console.log("New todo item: ", task);
 
         this.setState({
             tasks: [
@@ -37,14 +39,39 @@ class App extends Component {
         });
     };
 
+    clearTodoListHandler = () => {
+        this.setState({ tasks: [] });
+    };
+
+    changeCheckmark = (task, index) => {
+        // want to change 'completed' state for task whose check circle is clicked
+        // let currentTaskId = task.id;
+        // let completionStatus = task.completed;
+        task.completed = !task.completed;
+        let currentTasks = [...this.state.tasks];
+        currentTasks[index] = task;
+        // let completedTask = currentTasks.splice(index, 1);
+        // currentTasks = currentTasks.concat(completedTask);
+        console.log("in changeCheckmark in App.js: ", task);
+        // console.log("reordered tasks: ", currentTasks);
+
+        this.setState({
+            currentTasks
+        });
+    };
+
     render() {
         return (
             <div>
                 <h2>Welcome to your Todo App!</h2>
-                <TodoForm submitHandler={this.submitHandler} />
-                {this.state.tasks.map(task => (
-                    <TodoCard />
-                ))}
+                <TodoForm
+                    submitHandler={this.submitHandler}
+                    clearTodoListHandler={this.clearTodoListHandler}
+                />
+                <TodoList
+                    tasks={this.state.tasks}
+                    changeCheckmark={this.changeCheckmark}
+                />
             </div>
         );
     }
