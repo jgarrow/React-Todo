@@ -24,25 +24,25 @@ class App extends Component {
 
     // for input field
     onChangeHandler = event => {
-        let currentTasksLength = this.state.tasks.length;
         let taskName = event.target.value;
 
         this.setState({
             tasks: [
                 ...this.state.tasks,
-                { task: taskName, id: currentTasksLength, completed: false }
+                { task: taskName, id: Date.now(), completed: false }
             ]
         });
     };
 
     submitHandler = task => {
-        let currentTasksLength = this.state.tasks.length;
+        // don't want to override original id
+        let currentTaskId = task.id;
         console.log("New todo item: ", task);
 
         this.setState({
             tasks: [
                 ...this.state.tasks,
-                { task, id: currentTasksLength, completed: false }
+                { task, id: currentTaskId, completed: false }
             ]
         });
     };
@@ -52,7 +52,7 @@ class App extends Component {
     };
 
     changeCheckmark = (task, index) => {
-        // want to change 'completed' state for task whose check circle is clicked
+        // change 'completed' state for task whose check circle is clicked
         task.completed = !task.completed;
         let currentTasks = [...this.state.tasks];
         currentTasks[index] = task;

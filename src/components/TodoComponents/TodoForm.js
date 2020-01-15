@@ -46,7 +46,7 @@ class TodoForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            task: ""
+            value: ""
         };
     }
 
@@ -55,14 +55,14 @@ class TodoForm extends Component {
     };
 
     submitHandler = () => {
-        console.log("In submitHandler in TodoForm");
-        this.props.submitHandler(this.state.task);
+        this.props.submitHandler(this.state.value);
+        this.setState({ value: "" }); // clear input after submitting
     };
 
     submitOnPressEnter = event => {
-        console.log("in enter keypress handler");
         if (event.key === "Enter") {
-            this.props.submitHandler(this.state.task);
+            this.props.submitHandler(this.state.value);
+            this.setState({ value: "" }); // clear input after submitting
         }
     };
 
@@ -73,11 +73,12 @@ class TodoForm extends Component {
     render() {
         return (
             <FormContainer>
-                <label htmlFor="task">Add Todo item: </label>
+                <label htmlFor="value">Add Todo item: </label>
                 <Input
                     type="text"
-                    name="task"
+                    name="value"
                     placeholder="What do you need to do?"
+                    value={this.state.value}
                     onChange={this.changeHandler}
                     onKeyPress={this.submitOnPressEnter}
                 />

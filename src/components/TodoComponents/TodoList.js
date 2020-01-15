@@ -6,15 +6,15 @@ import styled from "styled-components";
 const TodoListContainer = styled.div`
     width: 80%;
     max-width: 960px;
-    margin: 0 auto;
+    margin: 1.5rem auto;
 `;
 
 const TodoItemContainer = styled.div`
     width: 150px;
     margin: 0 auto;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+
     align-items: center;
 `;
 
@@ -27,7 +27,7 @@ const Checkmark = styled.svg`
     stroke-width: 2;
     stroke: #fff;
     stroke-miterlimit: 10;
-    margin-right: 10px;
+
     box-shadow: inset 0px 0px 0px #7ac142;
     animation: ${props =>
         props.completed
