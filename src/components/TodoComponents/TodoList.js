@@ -31,8 +31,8 @@ const Checkmark = styled.svg`
     box-shadow: inset 0px 0px 0px #7ac142;
     animation: ${props =>
         props.completed
-            ? `fill 0.4s ease-in-out 0.4s forwards,
-        scale 0.3s ease-in-out 0.9s both`
+            ? `fill 0.4s ease-in-out forwards,
+        scale 0.3s ease-in-out 0.1s both`
             : "none"};
 
     @keyframes scale {
@@ -58,7 +58,7 @@ const Circle = styled.circle`
     stroke-miterlimit: 10;
     stroke: #7ac142;
     fill: none;
-    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
 
     @keyframes stroke {
         100% {
@@ -71,7 +71,7 @@ const Path = styled.path`
     transform-origin: 50% 50%;
     stroke-dasharray: 48;
     stroke-dashoffset: 48;
-    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;
 
     @keyframes stroke {
         100% {

@@ -87,7 +87,7 @@ class TodoForm extends Component {
                         Add to todo list
                     </Button>
                     <Button onClick={this.clearTodoListHandler}>
-                        Clear todo list
+                        Clear completed tasks
                     </Button>
                 </ButtonContainer>
             </FormContainer>

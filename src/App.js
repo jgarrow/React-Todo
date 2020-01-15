@@ -24,31 +24,40 @@ class App extends Component {
 
     // for input field
     onChangeHandler = event => {
-        let taskName = event.target.value;
+        const taskName = event.target.value;
+        const newTask = {
+            task: taskName,
+            id: Date.now(),
+            completed: false
+        };
 
         this.setState({
-            tasks: [
-                ...this.state.tasks,
-                { task: taskName, id: Date.now(), completed: false }
-            ]
+            ...this.state,
+            tasks: [...this.state.tasks, newTask]
         });
     };
 
     submitHandler = task => {
-        // don't want to override original id
-        let currentTaskId = task.id;
+        let currentTaskId = Date.now();
         console.log("New todo item: ", task);
+        const newTask = {
+            task: task,
+            id: currentTaskId,
+            completed: false
+        };
 
         this.setState({
-            tasks: [
-                ...this.state.tasks,
-                { task, id: currentTaskId, completed: false }
-            ]
+            ...this.state,
+            tasks: [...this.state.tasks, newTask]
         });
     };
 
     clearTodoListHandler = () => {
-        this.setState({ tasks: [] });
+        let uncompletedTasks = this.state.tasks.filter(
+            task => task.completed === false
+        );
+        console.log("Uncompleted tasks: ", uncompletedTasks);
+        this.setState({ tasks: uncompletedTasks });
     };
 
     changeCheckmark = (task, index) => {
@@ -56,14 +65,23 @@ class App extends Component {
         task.completed = !task.completed;
         let currentTasks = [...this.state.tasks];
         currentTasks[index] = task;
-        // let completedTask = currentTasks.splice(index, 1);
-        // currentTasks = currentTasks.concat(completedTask);
-        console.log("in changeCheckmark in App.js: ", task);
-        // console.log("reordered tasks: ", currentTasks);
 
         this.setState({
-            currentTasks
+            tasks: currentTasks
         });
+
+        // reorder tasks so that completed tasks move to the bottom of the list
+        // wait 1 second so that the checkmark animation finishes before reordering
+        setTimeout(() => {
+            let completedTask = currentTasks.splice(index, 1);
+            currentTasks = currentTasks.concat(completedTask);
+            console.log("in changeCheckmark in App.js: ", task);
+            console.log("reordered tasks: ", currentTasks);
+
+            this.setState({
+                tasks: currentTasks
+            });
+        }, 1000);
     };
 
     render() {
